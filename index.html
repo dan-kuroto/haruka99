@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白氏乘法表</title>
+    <link rel="shortcut icon" href="/res/favicon.ico" type="image/x-icon">
+    <style>
+        a, a:active, a:hover, a:link, a:link:hover, a:visited {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a {
+            color: #333 !important;
+        }
+        a:visited {
+            color: #777 !important;
+        }
+        a:hover {
+            color: #ffaaaa !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="modal fade" id="modal-disclaimer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">免责声明</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span>这是来自vup</span>
+                        <a href="https://space.bilibili.com/477332594" target="_blank">白神遥</a>
+                        <span>的《白氏乘法表》，与通常流传的九九乘法表并不相同，</span>
+                        <strong>请谨慎使用以免影响您的数学能力。</strong>
+                    </p>
+                    <p>
+                        <span>如果发现白氏乘法表与您记忆中的有任何差异，</span>
+                        <strong>不要怀疑，你是对的。</strong>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">我知道了</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span>hello world</span>
+
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(function() {
+            $('#modal-disclaimer').modal('show');
+        });
+    </script>
+</body>
+</html>
