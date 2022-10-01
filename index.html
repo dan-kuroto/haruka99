@@ -7,6 +7,9 @@
     <title>白氏乘法表</title>
     <link rel="shortcut icon" href="/haruka99/res/favicon.ico" type="image/x-icon">
     <style>
+        html, body, div#app, table {
+            height: 100%;
+        }
         a, a:active, a:hover, a:link, a:link:hover, a:visited {
             text-decoration: none;
             font-weight: bold;
@@ -20,11 +23,33 @@
         a:hover {
             color: #ffaaaa !important;
         }
+        td {
+            border: 0.1vh white solid !important;
+            width: 11% !important;
+            height: 11% !important;
+            padding: 0 !important;
+            border-radius: 10px;
+            background-color: #ffc5bf;
+            cursor: pointer;
+            user-select: none;
+        }
+        td.inactive {
+            background-color: #eee;
+            cursor: default;
+        }
+        td:hover {
+            text-shadow: 2px 2px #777;
+        }
+        td div.content {
+            font-size: 25px;
+            line-height: 10vh;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
 
-    <div class="modal fade" id="modal-disclaimer">
+    <div class="modal fade" id="modal-disclaimer" hidden>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -50,15 +75,55 @@
         </div>
     </div>
 
-    <span>hello world</span>
+    <div id="app">
+        <table class="table table-bordered">
+            <tbody>
+                <tr v-for="line in lines">
+                    <td v-for="col in line" v-bind:class="{inactive: col == null}" @click="play_sound(col)">
+                        <div class="content">
+                            <template v-if="col !== null">
+                                {{ col[0] }} &times; {{ col[1] }} &equals; {{ col[2] }}
+                            </template>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-        $(function() {
-            $('#modal-disclaimer').modal('show');
+        new Vue({
+            el: '#app',
+            computed: {
+                lines: () => {
+                    let lines = new Array(9);
+                    for (let i = 0; i < 9; i++) {
+                        lines[i] = new Array(9);
+                        for (let j = 0; j < 9; j++) {
+                            lines[i][j] = i <= j ? [i + 1, j + 1, (i + 1) * (j + 1)] : null;
+                        }
+                    }
+                    let missed = { '58': 35, '56': 35, '59': 35, '39': 18, '88': 48, '35': 16 };
+                    for (let ab in missed) {
+                        let a = Number(ab[0]), b = Number(ab[1]);
+                        lines[a - 1][b - 1] = [a, b, missed[ab]];
+                    }
+                    return lines;
+                }
+            },
+            methods: {
+                play_sound: (abc) => {
+                    let a = abc[0], b = abc[1], c = abc[2];
+                    console.log(a + "*" + b + "=" + c);
+                },
+            },
+            mounted: () => {
+                $('#modal-disclaimer').modal('show');
+            }
         });
     </script>
 </body>
