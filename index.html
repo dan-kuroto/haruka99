@@ -75,11 +75,13 @@
         </div>
     </div>
 
+    <audio hidden></audio>
+
     <div id="app">
         <table class="table table-bordered">
             <tbody>
                 <tr v-for="line in lines">
-                    <td v-for="col in line" v-bind:class="{inactive: col == null}" @click="play_sound(col)">
+                    <td v-for="col in line" v-bind:class="{inactive: col == null}" @click="play_sound(col[0], col[1], col[2])">
                         <div class="content">
                             <template v-if="col !== null">
                                 {{ col[0] }} &times; {{ col[1] }} &equals; {{ col[2] }}
@@ -107,7 +109,7 @@
                             lines[i][j] = i <= j ? [i + 1, j + 1, (i + 1) * (j + 1)] : null;
                         }
                     }
-                    let missed = { '58': 35, '56': 35, '59': 35, '39': 18, '88': 48, '35': 16 };
+                    let missed = { '58': 35, '56': 35, '59': 35, '35': 16, '29': 12, '49': 54, '79': 61 };
                     for (let ab in missed) {
                         let a = Number(ab[0]), b = Number(ab[1]);
                         lines[a - 1][b - 1] = [a, b, missed[ab]];
@@ -116,9 +118,11 @@
                 }
             },
             methods: {
-                play_sound: (abc) => {
-                    let a = abc[0], b = abc[1], c = abc[2];
-                    console.log(a + "*" + b + "=" + c);
+                play_sound: (a, b, c) => {
+                    let name = c > 9 ? `${a}${b}${c}` : `${a}${b}0${c}`;
+                    let audio = $('audio')[0];
+                    audio.src = `/haruka99/res/${name}.wav`;
+                    audio.play();
                 },
             },
             mounted: () => {
